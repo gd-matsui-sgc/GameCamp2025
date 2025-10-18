@@ -88,7 +88,7 @@ public class ObstacleManager : MonoBehaviour
         }
         _hutList[_hutIndex].SetActive(true);
         _hutList[_hutIndex].transform.position = pos;
-        _truckList[_truckIndex].GetComponent<ObstacleMovement>().SpeedUp(_hutMoveSpeed);
+        _hutList[_truckIndex].GetComponent<ObstacleMovement>().SpeedUp(_hutMoveSpeed);
         _hutIndex++;
     }
     /// <summary>
@@ -99,7 +99,7 @@ public class ObstacleManager : MonoBehaviour
     {
         if(_truckIndex >= _generateTruckCount)
         {
-            _truckIndex--;
+            _truckIndex=0;
         }
         _truckList[_truckIndex].SetActive(true);
         _truckList[_truckIndex].transform.position=pos;
@@ -118,7 +118,7 @@ public class ObstacleManager : MonoBehaviour
         }
         _enemyList[_enemyIndex].SetActive(true);
         _enemyList[_enemyIndex].transform.position=pos;
-        _truckList[_truckIndex].GetComponent<ObstacleMovement>().SpeedUp(_enemyMoveSpeed);
+        _enemyList[_truckIndex].GetComponent<ObstacleMovement>().SpeedUp(_enemyMoveSpeed);
         _enemyIndex++;
     }
     /// <summary>
@@ -135,9 +135,9 @@ public class ObstacleManager : MonoBehaviour
     /// </summary>
     public void ChangeMoveSpeed()
     {
-        _hutMoveSpeed -= _changeMoveSpeedValue;
-        _lightTruckMoveSpeed -= _changeMoveSpeedValue;
-        _enemyMoveSpeed -= _changeMoveSpeedValue;
+        _hutMoveSpeed += _changeMoveSpeedValue;
+        _lightTruckMoveSpeed += _changeMoveSpeedValue;
+        _enemyMoveSpeed += _changeMoveSpeedValue;
     }
     /// <summary>
     /// 障害物の移動メソッドを呼び出し
@@ -146,6 +146,10 @@ public class ObstacleManager : MonoBehaviour
     {
         foreach(ObstacleMovement obj in _moveScriptList)
         {
+            if (!obj.gameObject.activeInHierarchy)
+            {
+                continue;
+            }
             obj.MoveProtocol();
         }
     }

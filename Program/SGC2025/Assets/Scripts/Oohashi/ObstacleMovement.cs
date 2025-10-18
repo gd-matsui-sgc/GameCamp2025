@@ -6,7 +6,7 @@ public class ObstacleMovement : MonoBehaviour
     #endregion
     #region 変数
     private Rigidbody _rigidBody = default;
-    private float _moveSpeed = 0;
+    public float _moveSpeed = 0;
     #endregion
     /// <summary>
     /// 生成された時にコンポーネントを取得する
@@ -20,6 +20,7 @@ public class ObstacleMovement : MonoBehaviour
     /// </summary>
     public void MoveProtocol()
     {
+        Debug.Log("現在の移動速度は" + _moveSpeed);
         _rigidBody.linearVelocity = new Vector3(_moveSpeed, 0, 0);
     }
 

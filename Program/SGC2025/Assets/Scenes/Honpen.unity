@@ -695,6 +695,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8906210644918197305, guid: 61f7a4afaf460574699be2a158f4a530, type: 3}
+      propertyPath: _timeCounter
+      value: 
+      objectReference: {fileID: 265964950}
+    - target: {fileID: 8906210644918197305, guid: 61f7a4afaf460574699be2a158f4a530, type: 3}
       propertyPath: _obstacleManager
       value: 
       objectReference: {fileID: 1907855114}

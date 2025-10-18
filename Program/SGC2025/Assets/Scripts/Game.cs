@@ -27,6 +27,7 @@ public class Game : BaseScene
     protected override void OnUpdate()
     {
         _obstacleManager.MovementCall();
+        _timeCounter.Timer();
     }
 
     /**
