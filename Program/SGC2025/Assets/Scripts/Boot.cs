@@ -101,7 +101,7 @@ public class Boot : BaseScene
             if( m_game.IsExited())
             {
                 m_game = null;
-                SceneManager.UnloadSceneAsync("Game");
+                SceneManager.UnloadSceneAsync("Honpen");
                 SetPhase(  ( int )Phase.Result );
             }
         }
