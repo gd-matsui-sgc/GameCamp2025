@@ -11,6 +11,9 @@ public class Result : BaseScene
         Out,
     }
 
+    public ResultMenu resultMenu = null;
+    private bool m_highScoreUpdated = false;
+
     /**
      * 生成時に呼ばれる(Unity側)
      */
@@ -24,7 +27,14 @@ public class Result : BaseScene
      */
     protected override void OnStart()
     {
-
+        if (resultMenu != null)
+        {
+            for (int i = 0; i < Work.HIGH_SCORE_COUNT; i++)
+            {
+                int score = Work.GetHighScore(i);
+                resultMenu.SetHighScore(i, score);
+            }
+        }
     }
 
     /**
@@ -62,9 +72,46 @@ public class Result : BaseScene
 
     private void Wait()
     {
-        if (GetPhaseTime() >= 120)
+        // スコア演出開始 (2秒後)
+        if (GetPhaseTime() == 60 * 2)
         {
-            SetPhase((int)Phase.Out);
+            if (resultMenu != null)
+            {
+                resultMenu.SetScore(Work.GetScore());
+            }
+            return; // このフレームでは他の処理をしない
+        }
+
+        // スコア演出中は待機
+        if (resultMenu != null && resultMenu.IsScoreMoving())
+        {
+            return;
+        }
+
+        // ハイスコア更新処理 (スコア演出完了後、一度だけ実行)
+        if (!m_highScoreUpdated && GetPhaseTime() > 60 * 2)
+        {
+            m_highScoreUpdated = true; // フラグを立てて再実行を防ぐ
+            Work.UpdateHighScore();
+            for (int i = 0; i < Work.HIGH_SCORE_COUNT; i++)
+            {
+                int score = Work.GetHighScore(i);
+                resultMenu.SetHighScore(i, score);
+                // 今回のスコアがハイスコアにランクインした場合
+                if (score != 0 && score == Work.GetScore())
+                {
+                    resultMenu.SetHighScoreMarkVisible(i, true);
+                }
+            }
+        }
+
+        // ハイスコア表示後、一定時間待ってからキー入力待ちへ
+        if (m_highScoreUpdated && GetPhaseTime() > 60 * 4)
+        {
+            if (Input.anyKeyDown)
+            {
+                SetPhase((int)Phase.Out);
+            }
         }
     }
 
