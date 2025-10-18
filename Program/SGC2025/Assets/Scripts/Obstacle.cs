@@ -4,14 +4,12 @@ public class Obstacle : MonoBehaviour
 {
     [Header("耐久設定")]
     [SerializeField] private int hitPoints = 3;
-
-    [Header("当たり判定設定")]
     [SerializeField] private float hitCooldown = 0.05f;
 
     [Header("仲間生成設定")]
-    [SerializeField] private GameObject friendPrefab;  // 仲間のプレハブ
+    [SerializeField] private GameObject friendPrefab;   // 仲間プレハブ
     [SerializeField] private Transform player;          // プレイヤー参照
-    [SerializeField] private int spawnFriendCount = 1;  // 生成する仲間の数
+    [SerializeField] private int spawnFriendCount = 1;  // 一度に増える仲間数
 
     private bool isHitRecently = false;
 
@@ -27,46 +25,53 @@ public class Obstacle : MonoBehaviour
             Destroy(collision.gameObject);
             hitPoints--;
 
-            Debug.Log($"{gameObject.name} に卵命中！ 残りHP: {hitPoints}");
-
             if (hitPoints <= 0)
             {
-                BreakObstacle();
+                SpawnFollowers();
+                Destroy(gameObject);
             }
         }
     }
 
-    private void ResetHitFlag()
-    {
-        isHitRecently = false;
-    }
+    private void ResetHitFlag() => isHitRecently = false;
 
-    private void BreakObstacle()
+    private void SpawnFollowers()
     {
-        Debug.Log($"{gameObject.name} が破壊された！ 仲間が増える！");
+        // プレイヤーのフォロワーマネージャーを取得
+        FollowerManager manager = player.GetComponent<FollowerManager>();
+        if (manager == null)
+        {
+            Debug.LogWarning("プレイヤーに FollowerManager がアタッチされていません！");
+            return;
+        }
 
-        // 仲間を生成
         for (int i = 0; i < spawnFriendCount; i++)
         {
-           // プレイヤーの向きを基準に、少し後ろ側で出す
-            Vector3 backOffset = player.forward * 2f;
-            Vector3 spawnPos = player.position + backOffset + new Vector3(
-               Random.Range(-0.5f, 0.5f),
-               0.5f,
-               Random.Range(-0.5f, 0.5f)
-);
+            // プレイヤーの近くにランダムでスポーン
+            Vector3 spawnPos = player.position + Random.insideUnitSphere * 1f;
+            spawnPos.y = player.position.y + 0.5f;
 
-// ★ プレイヤーの回転そのままで生成！
-GameObject friend = Instantiate(friendPrefab, spawnPos, player.rotation * Quaternion.Euler(0, 180f, 0));
+            // 仲間を生成（向きはプレイヤー基準）
+            GameObject friend = Instantiate(friendPrefab, spawnPos, player.rotation);
 
-            // 追従先（プレイヤー）を設定
-            FriendFollow follow = friend.GetComponent<FriendFollow>();
-            if (follow != null && player != null)
-            {
-                follow.SetTarget(player);
-            }
+            // FollowerManager に登録（＝円形整列に加える）
+            manager.AddFollower(friend.transform);
         }
-
-        Destroy(gameObject);
     }
+    private void Start()
+{
+    // Inspectorで設定されていなければ、自動でPlayerを探す
+    if (player == null)
+    {
+        GameObject p = GameObject.FindGameObjectWithTag("Player");
+        if (p != null)
+        {
+            player = p.transform;
+        }
+        else
+        {
+            Debug.LogWarning("Playerが見つかりません。Tagを 'Player' に設定してください。");
+        }
+    }
+}
 }
