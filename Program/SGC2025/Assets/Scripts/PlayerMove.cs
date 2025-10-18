@@ -16,14 +16,14 @@ public class PlayerMoveZ_Rigidbody : MonoBehaviour
                          RigidbodyConstraints.FreezeRotation;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         // ←→キーまたはA/Dキー入力
         float move = Input.GetAxis("Horizontal");
 
         // 現在速度を基準にしてZ方向に力を加える
         Vector3 velocity = rb.linearVelocity;
-        velocity.z = move * moveSpeed;
+        velocity.z = move * moveSpeed * -1;
         rb.linearVelocity = velocity;
     }
 }

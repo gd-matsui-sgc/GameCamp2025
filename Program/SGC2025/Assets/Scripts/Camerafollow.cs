@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 public class Camerafollow : MonoBehaviour
 {
@@ -6,8 +6,8 @@ public class Camerafollow : MonoBehaviour
     public Transform target;  // プレイヤー
 
     [Header("カメラ位置設定")]
-    public float distance = 8f;  // プレイヤーからの距離
-    public float height = 6f;    // 高さ
+    public float distance = 4f;  // プレイヤーからの距離
+    public float height = 4f;    // 高さ
     public float angle = 45f;    // 見下ろし角度（度数）
 
     void LateUpdate()
@@ -28,5 +28,32 @@ public class Camerafollow : MonoBehaviour
 
         // プレイヤーを見る
         transform.LookAt(target);
+    }
+}*/
+using UnityEngine;
+
+public class Camerafollow : MonoBehaviour
+{
+    [Header("ターゲット設定")]
+    public Transform target;
+
+    [Header("カメラ位置設定")]
+    public float distance = 4f;
+    public float height = 2f;
+    public float lookOffset = 1.5f;
+    public float yRotationOffset = 180f; // ★ 向き補正用
+
+    void LateUpdate()
+    {
+        if (!target) return;
+
+        // 向き補正を加えた「背面方向」
+        Vector3 behind = Quaternion.Euler(0, yRotationOffset, 0) * -target.forward * distance;
+
+        Vector3 desiredPosition = target.position + behind + Vector3.up * height;
+
+        transform.position = desiredPosition;
+
+        transform.LookAt(target.position + Vector3.up * lookOffset);
     }
 }
