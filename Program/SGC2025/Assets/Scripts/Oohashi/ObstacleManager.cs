@@ -88,7 +88,7 @@ public class ObstacleManager : MonoBehaviour
         }
         _hutList[_hutIndex].SetActive(true);
         _hutList[_hutIndex].transform.position = pos;
-        _hutList[_truckIndex].GetComponent<ObstacleMovement>().SpeedUp(_hutMoveSpeed);
+        _hutList[_hutIndex].GetComponent<ObstacleMovement>().SpeedUp(_hutMoveSpeed);
         _hutIndex++;
     }
     /// <summary>
@@ -118,7 +118,7 @@ public class ObstacleManager : MonoBehaviour
         }
         _enemyList[_enemyIndex].SetActive(true);
         _enemyList[_enemyIndex].transform.position=pos;
-        _enemyList[_truckIndex].GetComponent<ObstacleMovement>().SpeedUp(_enemyMoveSpeed);
+        _enemyList[_enemyIndex].GetComponent<ObstacleMovement>().SpeedUp(_enemyMoveSpeed);
         _enemyIndex++;
     }
     /// <summary>

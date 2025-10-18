@@ -50,8 +50,6 @@ public class Game : BaseScene
             case Phase.FadeOut:     _FadeOut();     break;
         }
 
-        _obstacleManager.MovementCall();
-        _timeCounter.Timer();
     }
 
     /**
@@ -118,6 +116,9 @@ public class Game : BaseScene
     {
         // ゲーム終了条件を満たしたらゲーム終了へ
         //SetPhase((int)Phase.GameEnd);
+        _obstacleManager.MovementCall();
+        _timeCounter.Timer();
+
     }
 
     /**

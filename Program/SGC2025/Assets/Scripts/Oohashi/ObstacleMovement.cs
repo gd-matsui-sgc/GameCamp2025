@@ -6,7 +6,7 @@ public class ObstacleMovement : MonoBehaviour
     #endregion
     #region 変数
     private Rigidbody _rigidBody = default;
-    public float _moveSpeed = 0;
+    private float _moveSpeed = 0;
     #endregion
     /// <summary>
     /// 生成された時にコンポーネントを取得する
