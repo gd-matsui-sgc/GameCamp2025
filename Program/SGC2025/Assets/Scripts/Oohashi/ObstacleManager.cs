@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public class ObstacleManager : MonoBehaviour
 {
@@ -9,24 +8,40 @@ public class ObstacleManager : MonoBehaviour
     private GameObject _chikenHut = default;
     [SerializeField, Header("軽トラ")]
     private GameObject _lightTruck = default;
+    [SerializeField, Header("敵")]
+    private GameObject _enemy = default;
     [SerializeField, Header("小屋を生成する数")]
     private int _generateHutCount = 25;
     [SerializeField, Header("軽トラを生成する数")]
     private int _generateTruckCount = 25;
+    [SerializeField,Header("敵を生成する数")]
+    private int _generateEnemyCount = 25;
+
+    [SerializeField, Header("鳥小屋を移動させる初期速度(マイナス方向)")]
+    private int _hutMoveSpeed = -10;
+    [SerializeField, Header("軽トラを移動させる初期速度")]
+    private int _lightTruckMoveSpeed = -20;
+    [SerializeField, Header("敵を移動させる初期速度")]
+    private int _enemyMoveSpeed = -15;
+
+    [SerializeField, Header("一回の速度変更でどれくらい速度を変えるか")]
+    private int _changeMoveSpeedValue = -10;
 
     #endregion
 
     #region 変数
     private List<GameObject> _hutList = new List<GameObject>();
     private List<GameObject> _truckList = new List<GameObject>();
+    private List<GameObject> _enemyList = new List<GameObject>();
     private List<ObstacleMovement> _moveScriptList = new List<ObstacleMovement>();
 
     private int _hutIndex = 0;
     private int _truckIndex = 0;
+    private int _enemyIndex = 0;
     #endregion
 
     /// <summary>
-    /// 鳥小屋及び軽トラのプールを作成
+    /// 鳥小屋、軽トラ、敵のプールを作成
     /// </summary>
     public void CreatePool()
     {
@@ -50,6 +65,15 @@ public class ObstacleManager : MonoBehaviour
             _truckList.Add(obj);
             obj.SetActive(false);
         }
+        for(int i = 0;i < _generateEnemyCount;i++)
+        {
+            obj = Instantiate(_enemy);
+            move = obj.GetComponent<ObstacleMovement>();
+            move.GetComponentProtocol();
+            _moveScriptList.Add(move);
+            _enemyList.Add(obj);
+            obj.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -64,6 +88,7 @@ public class ObstacleManager : MonoBehaviour
         }
         _hutList[_hutIndex].SetActive(true);
         _hutList[_hutIndex].transform.position = pos;
+        _truckList[_truckIndex].GetComponent<ObstacleMovement>().SpeedUp(_hutMoveSpeed);
         _hutIndex++;
     }
     /// <summary>
@@ -78,7 +103,23 @@ public class ObstacleManager : MonoBehaviour
         }
         _truckList[_truckIndex].SetActive(true);
         _truckList[_truckIndex].transform.position=pos;
+        _truckList[_truckIndex].GetComponent<ObstacleMovement>().SpeedUp(_lightTruckMoveSpeed);
         _truckIndex++;
+    }
+    /// <summary>
+    /// 敵をアクティブにして座標セット
+    /// </summary>
+    /// <param name="pos"></param>
+    public void ActiveEnemy(Vector3 pos)
+    {
+        if(_enemyIndex >= _generateEnemyCount)
+        {
+            _enemyIndex = 0;
+        }
+        _enemyList[_enemyIndex].SetActive(true);
+        _enemyList[_enemyIndex].transform.position=pos;
+        _truckList[_truckIndex].GetComponent<ObstacleMovement>().SpeedUp(_enemyMoveSpeed);
+        _enemyIndex++;
     }
     /// <summary>
     /// オブジェクトを非表示にして待機させる
@@ -89,6 +130,18 @@ public class ObstacleManager : MonoBehaviour
         obj.SetActive(false);
     }
 
+    /// <summary>
+    /// オブジェクトの移動速度を変更する
+    /// </summary>
+    public void ChangeMoveSpeed()
+    {
+        _hutMoveSpeed -= _changeMoveSpeedValue;
+        _lightTruckMoveSpeed -= _changeMoveSpeedValue;
+        _enemyMoveSpeed -= _changeMoveSpeedValue;
+    }
+    /// <summary>
+    /// 障害物の移動メソッドを呼び出し
+    /// </summary>
     public void MovementCall()
     {
         foreach(ObstacleMovement obj in _moveScriptList)

@@ -4,6 +4,8 @@ public class Game : BaseScene
 {
     [SerializeField, Header("障害物のマネージャー")]
     private ObstacleManager _obstacleManager = default;
+    [SerializeField,Header("タイマー")]
+    private TimeCounter _timeCounter = default;
     /**
      * 生成時に呼ばれる(Unity側)
      */

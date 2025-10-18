@@ -119,6 +119,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &265964948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 265964949}
+  - component: {fileID: 265964950}
+  m_Layer: 0
+  m_Name: TimeCounter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &265964949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265964948}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &265964950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265964948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0788d49e3ecf6dc4cb5283e17157ce26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TimeCounter
+  _obstacleManager: {fileID: 1907855114}
 --- !u!1 &662434964
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,17 +562,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tester
   _manager: {fileID: 1907855114}
   _obstacleSpawnPoint:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 2}
-  - {x: 0, y: 0, z: 4}
-  - {x: 0, y: 0, z: 6}
-  - {x: 0, y: 0, z: 8}
-  - {x: 0, y: 0, z: 10}
-  - {x: 0, y: 0, z: -2}
-  - {x: 0, y: 0, z: -4}
-  - {x: 0, y: 0, z: -6}
-  - {x: 0, y: 0, z: -8}
-  - {x: 0, y: 0, z: -10}
+  - {x: 0, y: 0.5, z: 0}
+  - {x: 0, y: 0.5, z: 2}
+  - {x: 0, y: 0.5, z: 4}
+  - {x: 0, y: 0.5, z: 6}
+  - {x: 0, y: 0.5, z: 8}
+  - {x: 0, y: 0.5, z: 10}
+  - {x: 0, y: 0.5, z: -2}
+  - {x: 0, y: 0.5, z: -4}
+  - {x: 0, y: 0.5, z: -6}
+  - {x: 0, y: 0.5, z: -8}
+  - {x: 0, y: 0.5, z: -10}
 --- !u!4 &1817871104
 Transform:
   m_ObjectHideFlags: 0
@@ -572,10 +617,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9458c317dd602e846abc442afe3d4e62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleManager
-  _chikenHut: {fileID: 6581289947533203517, guid: 3e59f782d01258843b8718b34dfb7bf8, type: 3}
+  _chikenHut: {fileID: 2589355480993811866, guid: 49d32612cbf28db45a60347b6ffe2baf, type: 3}
   _lightTruck: {fileID: 5038142044045674339, guid: 3c587b0f7e6f87c49905ee9a81039e35, type: 3}
+  _enemy: {fileID: 6581289947533203517, guid: 3e59f782d01258843b8718b34dfb7bf8, type: 3}
   _generateHutCount: 25
   _generateTruckCount: 25
+  _generateEnemyCount: 25
+  _hutMoveSpeed: -10
+  _lightTruckMoveSpeed: -20
+  _enemyMoveSpeed: -15
+  _changeMoveSpeedValue: -10
 --- !u!4 &1907855115
 Transform:
   m_ObjectHideFlags: 0
@@ -663,3 +714,4 @@ SceneRoots:
   - {fileID: 662434968}
   - {fileID: 1817871104}
   - {fileID: 1558631500}
+  - {fileID: 265964949}
