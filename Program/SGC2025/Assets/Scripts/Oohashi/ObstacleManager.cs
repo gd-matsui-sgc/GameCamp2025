@@ -93,10 +93,6 @@ public class ObstacleManager : MonoBehaviour
     {
         foreach(ObstacleMovement obj in _moveScriptList)
         {
-            if (!obj.isActiveAndEnabled)
-            {
-                return;
-            }
             obj.MoveProtocol();
         }
     }
