@@ -17,7 +17,6 @@ public class Game : BaseScene
      */
     protected override void OnStart()
     {
-
     }
 
     /**
@@ -25,7 +24,7 @@ public class Game : BaseScene
      */
     protected override void OnUpdate()
     {
-
+        _obstacleManager.MovementCall();
     }
 
     /**

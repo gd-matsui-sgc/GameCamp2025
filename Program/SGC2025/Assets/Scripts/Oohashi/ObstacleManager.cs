@@ -19,6 +19,7 @@ public class ObstacleManager : MonoBehaviour
     #region ïœêî
     private List<GameObject> _hutList = new List<GameObject>();
     private List<GameObject> _truckList = new List<GameObject>();
+    private List<ObstacleMovement> _moveScriptList = new List<ObstacleMovement>();
 
     private int _hutIndex = 0;
     private int _truckIndex = 0;
@@ -30,18 +31,23 @@ public class ObstacleManager : MonoBehaviour
     public void CreatePool()
     {
         GameObject obj = null;
+        ObstacleMovement move = null;
         for(int i = 0; i < _generateHutCount; i++)
         {
             obj = Instantiate(_chikenHut);
+            move = obj.GetComponent<ObstacleMovement>();
+            move.GetComponentProtocol();
             _hutList.Add(obj);
-            obj.GetComponent<ObstacleMovement>().GetComponentProtocol();
+            _moveScriptList.Add(move);
             obj.SetActive(false);
         }
         for(int i = 0;i< _generateTruckCount; i++)
         {
             obj = Instantiate(_lightTruck);
+            move = obj.GetComponent<ObstacleMovement>();
+            move.GetComponentProtocol();
+            _moveScriptList.Add(move);
             _truckList.Add(obj);
-            obj.GetComponent<ObstacleMovement>().GetComponentProtocol();
             obj.SetActive(false);
         }
     }
@@ -81,5 +87,17 @@ public class ObstacleManager : MonoBehaviour
     public void DeActiveObj(GameObject obj)
     {
         obj.SetActive(false);
+    }
+
+    public void MovementCall()
+    {
+        foreach(ObstacleMovement obj in _moveScriptList)
+        {
+            if (!obj.isActiveAndEnabled)
+            {
+                return;
+            }
+            obj.MoveProtocol();
+        }
     }
 }
