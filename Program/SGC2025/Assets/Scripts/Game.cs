@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class Game : BaseScene
 {
+    [SerializeField, Header("障害物のマネージャー")]
+    private ObstacleManager _obstacleManager = default;
     /**
      * 生成時に呼ばれる(Unity側)
      */
     protected override void OnAwake()
     {
-
+        _obstacleManager.CreatePool();
     }
 
     /**
