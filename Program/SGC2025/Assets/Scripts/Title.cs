@@ -9,6 +9,13 @@ public class Title : BaseScene
         Out,
     }
 
+    [SerializeField, Tooltip("タイトルメニューの参照")]
+    private TitleMenu titleMenu = null;
+
+    // 決定ボタンが押されたかどうかを管理するフラグ
+    private bool _isConfirmationStarted = false;
+
+
     /**
      * 生成時に呼ばれる(Unity側)
      */
@@ -22,7 +29,7 @@ public class Title : BaseScene
      */
     protected override void OnStart()
     {
-
+        sound.PlayBGM(SoundDefine.BGM.TITLE);
     }
 
     /**
@@ -60,9 +67,22 @@ public class Title : BaseScene
 
     private void Wait()
     {
-        if (GetPhaseTime() >= 120)
+        // まだ決定ボタンが押されておらず、何かしらの入力があった場合
+        if (!_isConfirmationStarted && Input.anyKeyDown)
         {
-            SetPhase((int)Phase.Out);
+            if (titleMenu != null)
+            {
+                sound.PlaySE(SoundDefine.SE.CONFIRM_16);
+                // TitleMenuの決定演出を開始
+                titleMenu.OnConfirm();
+            }
+            _isConfirmationStarted = true;
+        }
+
+        // 決定演出が開始された後、その完了を待つ
+        if (_isConfirmationStarted && titleMenu != null && titleMenu.IsConfirmFlashFinished())
+        {
+            SetPhase((int)Phase.Out); // 演出が完了したら次のフェーズへ
         }
     }
 
@@ -70,6 +90,7 @@ public class Title : BaseScene
     {
         if (GetPhaseTime() == 0)
         {
+            sound.StopBGM();
             Work.fade.Play(Fade.FadeType.Out, Fade.ColorType.Black);
         }
         else if( !Work.fade.IsPlaying())

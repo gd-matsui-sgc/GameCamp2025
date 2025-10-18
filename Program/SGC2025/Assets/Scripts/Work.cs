@@ -13,11 +13,20 @@ public static class Work
     // フェード
     public static Fade fade = null;
 
+    // メインのオーディオリスナー
+    public static AudioListener mainAudioListener = null;
+
     // スコア
     private static int m_score =5000;
 
     // ハイスコア
     private static List<int> m_highScores = new List<int>();
+
+    // 静的コンストラクタ。ゲーム開始時に一度だけ呼ばれる
+    static Work()
+    {
+        LoadHighScores();
+    }
 
     // スコアを設定
     public static void SetScore(int _score)
@@ -44,6 +53,9 @@ public static class Work
         {
             m_highScores.RemoveRange(3, m_highScores.Count - HIGH_SCORE_COUNT);
         }
+
+        // 更新したハイスコアを保存
+        SaveHighScores();
     }
 
     // ハイスコアを取得
@@ -56,4 +68,32 @@ public static class Work
         return 0;
     }
 
+    /// <summary>
+    /// ハイスコアをPlayerPrefsに保存します
+    /// </summary>
+    private static void SaveHighScores()
+    {
+        for (int i = 0; i < HIGH_SCORE_COUNT; i++)
+        {
+            // キーと値を設定
+            string key = "HighScore_" + i;
+            int score = (i < m_highScores.Count) ? m_highScores[i] : 0;
+            PlayerPrefs.SetInt(key, score);
+        }
+        // 変更をディスクに書き込む
+        PlayerPrefs.Save();
+    }
+
+    /// <summary>
+    /// ハイスコアをPlayerPrefsから読み込みます
+    /// </summary>
+    private static void LoadHighScores()
+    {
+        m_highScores.Clear();
+        for (int i = 0; i < HIGH_SCORE_COUNT; i++)
+        {
+            string key = "HighScore_" + i;
+            m_highScores.Add(PlayerPrefs.GetInt(key, 0)); // データがなければ0を読み込む
+        }
+    }
 }
