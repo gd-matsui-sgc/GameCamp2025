@@ -13,24 +13,40 @@ public class BaseScene : Base
     [SerializeField]
     protected EventSystem eventSystem = null;
 
+    // イベントシステム
+    [SerializeField]
+    protected Fade fade = null;
+
+
     /**
      * Updateの直前に呼ばれる(Unity側)
      */
     protected override void Start()
     {
         // イベントシステムは複数起動できないので１つにする
-        if( eventSystem != null )
+        if (eventSystem != null)
         {
-            if( Work.eventSystem == null )
+            if (Work.eventSystem == null)
             {
                 Work.eventSystem = eventSystem;
             }
             else
             {
-                eventSystem.gameObject.SetActive( false );
+                eventSystem.gameObject.SetActive(false);
             }
         }
 
+        if (fade != null)
+        {
+            if (Work.fade == null)
+            {
+                Work.fade = fade;
+            }
+            else
+            {
+                fade.gameObject.SetActive(false);
+            }
+        }
         base.Start();
     }
 }

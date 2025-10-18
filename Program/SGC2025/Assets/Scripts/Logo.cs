@@ -2,12 +2,19 @@ using UnityEngine;
 
 public class Logo : BaseScene
 {
+    public enum Phase
+    {
+        In,
+        Wait,
+        Out,
+    }
+
     /**
      * 生成時に呼ばれる(Unity側)
      */
     protected override void OnAwake()
     {
-
+        Debug.Log("Logo");
     }
 
     /**
@@ -23,7 +30,12 @@ public class Logo : BaseScene
      */
     protected override void OnUpdate()
     {
-
+        switch ((Phase)GetPhase())
+        {
+            case Phase.In: In(); break;
+            case Phase.Wait: Wait(); break;
+            case Phase.Out: Out(); break;
+        }
     }
 
     /**
@@ -34,4 +46,35 @@ public class Logo : BaseScene
 
     }
 
+    private void In()
+    {
+        if (GetPhaseTime() == 0)
+        {
+            Work.fade.Play(Fade.FadeType.In, Fade.ColorType.Black);
+        }
+        else if( !Work.fade.IsPlaying())
+        {
+            SetPhase((int)Phase.Wait);
+        }
+    }
+
+    private void Wait()
+    {
+        if (GetPhaseTime() >= 120)
+        {
+            SetPhase((int)Phase.Out);
+        }
+    }
+
+    private void Out()
+    {
+        if (GetPhaseTime() == 0)
+        {
+            Work.fade.Play(Fade.FadeType.Out, Fade.ColorType.Black);
+        }
+        else if( !Work.fade.IsPlaying())
+        {
+            Exit();
+        }
+    }
 }

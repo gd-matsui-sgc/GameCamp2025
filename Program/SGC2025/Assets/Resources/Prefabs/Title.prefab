@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Title
   eventSystem: {fileID: 0}
+  fade: {fileID: 811937012093624576, guid: 70daa368f8d992140a0788d46f256fb8, type: 3}

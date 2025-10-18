@@ -30,15 +30,20 @@ public class Boot : BaseScene
     // リザルト
     private Result m_result = null;
 
+    protected override void OnStart()
+    {
+        base.OnStart();
+    }
+
 
     protected override void OnUpdate()
     {
-        switch( (Phase)GetPhase() )
+        switch ((Phase)GetPhase())
         {
-        case Phase.Logo:   _Logo();    break;
-        case Phase.Title:  _Title();   break;
-        case Phase.Game:   _Game();    break;
-        case Phase.Result: _Result();  break;
+            case Phase.Logo: _Logo(); break;
+            case Phase.Title: _Title(); break;
+            case Phase.Game: _Game(); break;
+            case Phase.Result: _Result(); break;
         }
     }
 
