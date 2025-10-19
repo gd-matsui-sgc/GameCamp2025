@@ -12,6 +12,10 @@ public class ResultMenu : MonoBehaviour
     [SerializeField]
     public List<GameObject> highScoreMarks = null;
 
+    // 鶏オブジェクト
+    [SerializeField]
+    public GameObject cookObject = null;
+
     // スタンプオブジェクト
     [SerializeField]
     public GameObject stampObject = null;
@@ -23,6 +27,12 @@ public class ResultMenu : MonoBehaviour
     [Header("ハイライト設定")]
     [SerializeField, Tooltip("ハイスコア更新時に使用する色")]
     private Color newHighScoreColor = Color.yellow;
+
+    [Header("鶏の演出設定")]
+    [SerializeField, Tooltip("揺れる角度")]
+    private float swayAngle = 10f;
+    [SerializeField, Tooltip("揺れる速さ")]
+    private float swaySpeed = 2f;
 
 
     private Tween m_scoreTween = null;
@@ -67,6 +77,13 @@ public class ResultMenu : MonoBehaviour
         {
             stampObject.transform.localScale = m_stampScaleTween.GetProgress();
             stampObject.transform.localRotation = Quaternion.Euler(m_stampRotationTween.GetProgress());
+        }
+
+        // 鶏オブジェクトを左右に揺らす
+        if (cookObject != null)
+        {
+            float angle = Mathf.Sin(Time.time * swaySpeed) * swayAngle;
+            cookObject.transform.localRotation = Quaternion.Euler(0, 0, angle);
         }
     }
 
