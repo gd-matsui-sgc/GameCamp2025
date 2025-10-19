@@ -35,6 +35,12 @@ public class Base : MonoBehaviour
             GameObject soundManagerObj = new GameObject("SoundManager");
             soundManagerObj.AddComponent<SoundManager>();
         }
+
+        if (FloatingTextManager.Instance == null)
+        {
+            GameObject soundManagerObj = new GameObject("FloatingTextManager");
+            soundManagerObj.AddComponent<FloatingTextManager>();
+        }
         OnAwake();
     }
 

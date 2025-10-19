@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField, Header("ƒeƒLƒXƒg")]
+    [SerializeField, Header("ï¿½eï¿½Lï¿½Xï¿½g")]
     private TextMeshProUGUI _scoreText = default;
     private int _initScore = 0;
     public int Score
@@ -23,7 +23,7 @@ public class ScoreManager : MonoBehaviour
 
     public void UpdateScoreValue(int score)
     {
-        if(_follow.Followers.Count == 0 || _follow.Followers.Count == 1)
+        if (_follow.Followers.Count == 0 || _follow.Followers.Count == 1)
         {
             _scoreMultiplier = 1;
         }
@@ -33,5 +33,18 @@ public class ScoreManager : MonoBehaviour
         }
         _initScore += score * _scoreMultiplier;
         _scoreText.text = _initScore.ToString();
+    }
+
+    public int GetPendingScore(int score)
+    {
+        if (_follow.Followers.Count == 0 || _follow.Followers.Count == 1)
+        {
+            _scoreMultiplier = 1;
+        }
+        else
+        {
+            _scoreMultiplier = _follow.Followers.Count;
+        }
+        return (score * _scoreMultiplier);
     }
 }

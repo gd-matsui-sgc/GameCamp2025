@@ -55,6 +55,12 @@ public class Obstacle : MonoBehaviour
             {
                 SpawnFollowers();
                 _obstacleManager.DeActiveObj(this.gameObject);
+
+                int pendingScore = _scoreManager.GetPendingScore(100);
+                if (FloatingTextManager.Instance != null)
+                {
+                    FloatingTextManager.Instance.Show("+" + pendingScore.ToString(), transform.position, Color.red);
+                }
                 _scoreManager.UpdateScoreValue(100);
             }
         }

@@ -27,15 +27,14 @@ public class FloatingTextManager : MonoBehaviour
         }
 
         GameObject floatingTextPrefab = Resources.Load<GameObject>("Prefabs/UIs/ScorePopup");
-
         // プレハブからプールを生成
         if (floatingTextPrefab != null)
         {
-
             for (int i = 0; i < poolSize; i++)
             {
                 GameObject obj = Instantiate(floatingTextPrefab, transform);
                 obj.SetActive(false);
+                obj.transform.localEulerAngles = new Vector3(0.0f, 90.0f, 0.0f);
                 _pool.Add(obj.GetComponent<FloatingText>());
             }
         }
