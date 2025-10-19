@@ -18,6 +18,8 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {
         _follow = GameObject.FindWithTag("Player").GetComponent<FollowerManager>();
+        _scoreText.text = _initScore.ToString();
+
     }
 
 

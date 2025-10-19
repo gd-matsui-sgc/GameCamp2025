@@ -47,7 +47,7 @@ public class Obstacle : MonoBehaviour
         {
             isHitRecently = true;
             Invoke(nameof(ResetHitFlag), hitCooldown);
-
+            SoundManager.Instance.PlaySE(SoundDefine.SE.DOOR_KICK);
             Destroy(collision.gameObject);
             hitPoints--;
 

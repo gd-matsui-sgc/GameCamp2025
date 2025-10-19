@@ -6,6 +6,7 @@ public class LightTruck : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Egg"))
         {
+            SoundManager.Instance.PlaySE(SoundDefine.SE.JAIL_DOOR_CLOSE);
             Destroy(other.gameObject);
         }
     }

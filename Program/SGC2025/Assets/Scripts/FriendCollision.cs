@@ -30,6 +30,7 @@ public class FriendCollision : MonoBehaviour
 
             if (deathEffect != null)
                 Instantiate(deathEffect, transform.position, Quaternion.identity);
+            SoundManager.Instance.PlaySE(SoundDefine.SE.CHICKEN_CRY_3);
 
             Destroy(gameObject);
         }

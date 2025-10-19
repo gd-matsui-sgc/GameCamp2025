@@ -35,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         if (isInvincible) return;
-
+        SoundManager.Instance.PlaySE(SoundDefine.SE.TSUKKOMI_HIT_1);
         currentHP -= amount;
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         UpdateHPUI();

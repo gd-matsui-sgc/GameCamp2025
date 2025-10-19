@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag("Egg"))
         {
             if (isHitRecently) return;
+            SoundManager.Instance.PlaySE(SoundDefine.SE.DOOR_KICK);
             isHitRecently = true;
             Invoke(nameof(ResetHitFlag), hitCooldown);
 

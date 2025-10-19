@@ -77,6 +77,7 @@ public class Game : BaseScene
      */
     protected void _Startup()
     {
+        _playerMove.CanMove = false;
         // 暗転中にやっておきたいことを書きます
         SetPhase((int)Phase.FadeIn);
     }
@@ -110,7 +111,6 @@ public class Game : BaseScene
      */
     protected void _Help()
     {
-        _playerMove.CanMove = false;
         // 最初のフレームでテロップを再生
         if (GetPhaseTime() == 0)
         {
@@ -127,6 +127,8 @@ public class Game : BaseScene
         {
             if (Input.GetButtonDown("Cancel") || Input.GetButtonDown("Jump"))
             {
+
+                SoundManager.Instance.PlaySE(SoundDefine.SE.MEN_START_SHOUT);
                 m_helpMenu.Close();
             }
         }

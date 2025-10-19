@@ -133,11 +133,11 @@ public class ObstacleManager : MonoBehaviour
         switch (obj.tag)
         {
             case "Obstacle":
-                SoundManager.Instance.PlaySE(SoundDefine.SE.CHICKEN_CRY_3);
+                SoundManager.Instance.PlaySE(SoundDefine.SE.CHICKEN_CRY_1);
                 break;
 
             case "Enemy":
-                SoundManager.Instance.PlaySE(SoundDefine.SE.CHICKEN_CRY_1);
+                SoundManager.Instance.PlaySE(SoundDefine.SE.CHICKEN_CRY_3);
                 break;
             default:
                 SoundManager.Instance.PlaySE(SoundDefine.SE.EXPLOSION_1);
