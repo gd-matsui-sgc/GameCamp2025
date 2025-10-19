@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using UnityEngine.SceneManagement;  // ← シーン切り替えに必要
 
 public class PlayerHealth : MonoBehaviour
 {
     [Header("HP設定")]
     [SerializeField] private int maxHP = 100;
-    [SerializeField] private Image hpFillImage; // ← Sliderの代わりにImage
+    [SerializeField] private Image hpFillImage; // HPバー（Fill用Image）
     private int currentHP;
 
     [Header("ダメージ設定")]
@@ -23,8 +23,12 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         currentHP = maxHP;
+
+        // HPバーの初期化
+        if (hpFillImage != null)
+            hpFillImage.fillAmount = 1f;
+
         renderers = GetComponentsInChildren<Renderer>();
-        UpdateHPUI();
     }
 
     public void TakeDamage(int amount)
@@ -34,6 +38,8 @@ public class PlayerHealth : MonoBehaviour
         currentHP -= amount;
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         UpdateHPUI();
+
+        Debug.Log($"[PlayerHealth] ダメージ {amount} → 残りHP: {currentHP}");
 
         if (currentHP <= 0)
         {
@@ -49,12 +55,12 @@ public class PlayerHealth : MonoBehaviour
     {
         if (hpFillImage != null)
         {
-            float fillAmount = (float)currentHP / maxHP;
-            hpFillImage.fillAmount = fillAmount;
+            float ratio = (float)currentHP / maxHP;
+            hpFillImage.fillAmount = ratio;
         }
     }
 
-    private IEnumerator InvincibleRoutine()
+    private System.Collections.IEnumerator InvincibleRoutine()
     {
         isInvincible = true;
         float timer = 0f;
@@ -82,10 +88,22 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Playerが倒れた！");
-        // TODO: GameOver演出など
+        Debug.Log("💀 Player死亡 → リザルト画面へ遷移！");
+
+        // 無敵解除＆非表示解除（念のため）
+        isInvincible = false;
+        SetVisible(true);
+
+        // 1秒後にリザルト画面へ切り替え
+        Invoke(nameof(LoadResultScene), 1f);
     }
 
+    private void LoadResultScene()
+    {
+        SceneManager.LoadScene("result"); // ← シーン名は自分のに合わせて！
+    }
+
+    // Friendが消えた時にHPを減らす
     public void TakeSmallDamageFromFriend()
     {
         TakeDamage(damageFromFriend);
