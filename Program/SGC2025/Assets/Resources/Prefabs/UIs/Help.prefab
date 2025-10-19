@@ -184,7 +184,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5EFA\u7269\u3084\u6575\u3092\u5375\u3067\u5012\u3057\u3066\u4EF2\u9593\u3092\u96C6\u3081\u3088\u3046\uFF01\n\u305F\u3060\u3057\u8EFD\u30C8\u30E9\u306F\u58CA\u305B\u306A\u3044\u306E\u3067\u6CE8\u610F\uFF01"
+  m_text: "\u5EFA\u7269\u3084\u6575\u3092\u5375\u3067\u5012\u3057\u3066\u4EF2\u9593\u3092\u96C6\u3081\u3088\u3046\uFF01\n\u305F\u3060\u3057\u8EFD\u30C8\u30E9\u306F\u58CA\u305B\u306A\u3044\u306E\u3067\u6CE8\u610F\uFF01\n\nspace\u30AD\u30FC\u3067\u30B9\u30BF\u30FC\u30C8"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8357c404f0fc33649bf00e4243935cbf, type: 2}
   m_sharedMaterial: {fileID: -1704982495315857010, guid: 8357c404f0fc33649bf00e4243935cbf, type: 2}

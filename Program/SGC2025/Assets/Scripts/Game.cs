@@ -123,7 +123,7 @@ public class Game : BaseScene
         }
         else if(m_helpMenu != null && m_helpMenu.IsPlaying())
         {
-            if (Input.anyKeyDown)
+            if (Input.GetButtonDown("Cancel") || Input.GetButtonDown("Jump"))
             {
                 m_helpMenu.Close();
             }
