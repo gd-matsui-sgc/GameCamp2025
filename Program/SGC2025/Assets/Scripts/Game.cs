@@ -22,6 +22,8 @@ public class Game : BaseScene
 
     // テロップ
     private Telop m_telop = null;
+    // ヘルプメニュー
+    private HelpMenu m_helpMenu = null;
 
     /**
      * 生成時に呼ばれる(Unity側)
@@ -102,7 +104,31 @@ public class Game : BaseScene
      */
     protected void _Help()
     {
-        SetPhase((int)Phase.GameStart);
+        // 最初のフレームでテロップを再生
+        if (GetPhaseTime() == 0)
+        {
+            // Telopプレハブを読み込んで生成し、コンポーネントを取得
+            GameObject helpPrefab = Resources.Load<GameObject>("Prefabs/UIs/Help");
+            if (helpPrefab != null)
+            {
+                GameObject instance = Instantiate(helpPrefab);
+                m_helpMenu = instance.GetComponent<HelpMenu>();
+            }
+            m_helpMenu?.Play();
+        }
+        else if(m_helpMenu != null && m_helpMenu.IsPlaying())
+        {
+            if (Input.anyKeyDown)
+            {
+                m_helpMenu.Close();
+            }
+        }
+        else if (m_helpMenu == null || m_helpMenu.IsExited())
+        {
+            Destroy(m_helpMenu.gameObject);
+            m_helpMenu = null;
+            SetPhase((int)Phase.GameStart);
+        }
     }
 
     /**

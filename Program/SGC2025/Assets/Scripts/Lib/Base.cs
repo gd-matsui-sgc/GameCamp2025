@@ -77,7 +77,10 @@ public class Base : MonoBehaviour
      */
     protected virtual void OnUpdate()
     {
-
+        if(m_exited)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     /**
