@@ -91,6 +91,14 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("💀 Player死亡 → リザルト画面へ遷移！");
 
+        // 仲間を全削除
+        var friends = GameObject.FindGameObjectsWithTag("Friend");
+        foreach (var f in friends)
+    {
+        Destroy(f);
+    }
+
+
         // 無敵解除＆非表示解除（念のため）
         isInvincible = false;
         SetVisible(true);
