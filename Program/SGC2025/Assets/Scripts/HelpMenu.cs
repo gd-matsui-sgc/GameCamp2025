@@ -14,9 +14,6 @@ public class HelpMenu : Base
         Exit, // 終了処理中（フェードアウト）
     }
 
-    [SerializeField, Tooltip("表示するテキストコンポーネント")]
-    private TMP_Text helpText = null;
-
     [SerializeField, Tooltip("背景画像")]
     private Image backgroundImage = null;
 
@@ -32,12 +29,6 @@ public class HelpMenu : Base
         m_alphaTween = gameObject.AddComponent<Tween>();
         m_scaleTween = gameObject.AddComponent<Tween>();
 
-        // 最初は非表示にしておく
-        if (helpText != null)
-        {
-            SetTextAlpha(0);
-            helpText.gameObject.SetActive(false);
-        }
         if (backgroundImage != null)
         {
             SetBackgroundScale(0);
@@ -50,11 +41,6 @@ public class HelpMenu : Base
     {
         base.OnUpdate();
 
-        // Tweenによるアルファ値の更新
-        if (m_alphaTween.IsPlaying())
-        {
-            SetTextAlpha(m_alphaTween.GetProgress().x);
-        }
         if (m_scaleTween.IsPlaying())
         {
             SetBackgroundScale(m_scaleTween.GetProgress().y);
@@ -82,10 +68,9 @@ public class HelpMenu : Base
     /// <param name="message">表示する文字列</param>
     public void Play()
     {
-        if (helpText == null || GetPhase() == (int)Phase.Run) return;
+        if (GetPhase() == (int)Phase.Run) return;
 
         // フェードイン
-        helpText.gameObject.SetActive(true);
         m_alphaTween.Play(Vector3.zero, Vector3.one, fadeTime, Tween.Mode.Linear);
 
         // スケールイン
@@ -105,15 +90,6 @@ public class HelpMenu : Base
     public bool IsPlaying()
     {
         return (Phase)GetPhase() == Phase.Run;
-    }
-
-    // テキストのアルファ値を設定するヘルパー関数
-    private void SetTextAlpha(float alpha)
-    {
-        if (helpText == null) return;
-        Color color = helpText.color;
-        color.a = alpha;
-        helpText.color = color;
     }
 
     // 背景のスケールを設定するヘルパー関数
