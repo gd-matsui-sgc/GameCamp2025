@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
         int pendingScore = _scoreManager.GetPendingScore(200);
         if (FloatingTextManager.Instance != null)
         {
-            FloatingTextManager.Instance.Show("+" + pendingScore.ToString(), transform.position, Color.red);
+            FloatingTextManager.Instance.Show("+" + pendingScore.ToString(), transform.position, Color.gold);
         }
         _obstacleManager.DeActiveObj(this.gameObject);
         _scoreManager.UpdateScoreValue(100);

@@ -59,7 +59,8 @@ public class Obstacle : MonoBehaviour
                 int pendingScore = _scoreManager.GetPendingScore(100);
                 if (FloatingTextManager.Instance != null)
                 {
-                    FloatingTextManager.Instance.Show("+" + pendingScore.ToString(), transform.position, Color.red);
+                    FloatingTextManager.Instance.Show("+" + pendingScore.ToString(), transform.position, Color.gold);
+                    FloatingTextManager.Instance.Show("ニワトリ追加！", transform.position + Vector3.up * 1.0f, Color.darkGreen);
                 }
                 _scoreManager.UpdateScoreValue(100);
             }

@@ -60,12 +60,8 @@ public class FloatingText : MonoBehaviour
         _timer += Time.deltaTime;
         if (_timer > lifeTime && !_alphaTween.IsPlaying())
         {
-            // フェードアウトが終わったら非アクティブにする
-            if (_textMesh.color.a <= 0.01f)
-            {
-                _isPlaying = false;
-                gameObject.SetActive(false);
-            }
+            _isPlaying = false;
+            gameObject.SetActive(false);
         }
     }
 
