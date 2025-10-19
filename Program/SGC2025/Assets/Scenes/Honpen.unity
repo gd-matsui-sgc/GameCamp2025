@@ -367,6 +367,9 @@ MonoBehaviour:
   _speedUpEveryTime: 10
   _spawnTime: 5
   _shorteningTime: 0.1
+  _playerSpeedUpValue: 2
+  _floorMove: {fileID: 662434969}
+  _floorSpeedUpValue: 0.2
 --- !u!1 &396822799
 GameObject:
   m_ObjectHideFlags: 0
@@ -1142,7 +1145,7 @@ MonoBehaviour:
   _hutMoveSpeed: -10
   _lightTruckMoveSpeed: -20
   _enemyMoveSpeed: -15
-  _changeMoveSpeedValue: -10
+  _changeMoveSpeedValue: -7
 --- !u!4 &1907855115
 Transform:
   m_ObjectHideFlags: 0

@@ -16,4 +16,9 @@ public class FloorMove : MonoBehaviour
         float offset = _floorMoveSpeed * Time.time * -1;
         _renderer.material.SetTextureOffset("_MainTex", new Vector2(0,offset));
     }
+
+    public void UpdateMoveSpeed(float value)
+    {
+        _floorMoveSpeed += value;
+    }
 }

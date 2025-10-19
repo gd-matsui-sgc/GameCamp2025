@@ -12,10 +12,22 @@ public class TimeCounter : MonoBehaviour
     private float _spawnTime = 5;
     [SerializeField, Header("障害物生成時間をどれだけ短くするか")]
     private float _shorteningTime = 0.01f;
+    [SerializeField, Header("プレイヤーをどれくらいスピードアップさせるか")]
+    private int _playerSpeedUpValue = 1;
+    [SerializeField, Header("床移動のスクリプト")]
+    private FloorMove _floorMove = default;
+    [SerializeField, Header("床をどれくらい加速させるか")]
+    private float _floorSpeedUpValue = 0.1f;
+    private PlayerMoveZ_Rigidbody _playerMove = default;
     private float _initTime = 0;
     private bool _canChangeSpeed = true;
     private bool _canSpawn = true;
     private bool _isFirst = true;
+
+    private void Start()
+    {
+        _playerMove = GameObject.FindWithTag("Player").GetComponent<PlayerMoveZ_Rigidbody>();
+    }
     public void Timer()
     {
         _initTime += Time.deltaTime;
@@ -31,6 +43,8 @@ public class TimeCounter : MonoBehaviour
             Debug.Log("スピード変更");
             _obstacleManager.ChangeMoveSpeed();
             _canChangeSpeed = false;
+            _playerMove.moveSpeed += _playerSpeedUpValue;
+            _floorMove.UpdateMoveSpeed(_floorSpeedUpValue);
         }
 
         if (_initTime % _speedUpEveryTime > 0.1f)
