@@ -41,7 +41,7 @@ public class FollowerManager : MonoBehaviour
         int total = followers.Count;
         if (total == 0) return;
 
-        // 🔹 円（リング）の数を計算
+        //  円（リング）の数を計算
         int ringCount = Mathf.CeilToInt((float)total / followersPerRing);
         int index = 0; // 通し番号
 
