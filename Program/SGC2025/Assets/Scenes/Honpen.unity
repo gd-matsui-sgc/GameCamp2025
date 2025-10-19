@@ -453,6 +453,7 @@ GameObject:
   - component: {fileID: 662434967}
   - component: {fileID: 662434966}
   - component: {fileID: 662434965}
+  - component: {fileID: 662434969}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -506,7 +507,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 36c2eab4fbbe6874e88425dd8f3ce469, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -545,13 +546,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 662434964}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 100, y: 1, z: 22}
+  m_LocalScale: {x: 22, y: 1, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &662434969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662434964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebeb79d2b59f9c046909d41d5df136fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FloorMove
+  _floorMoveSpeed: 0.5
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,8 +767,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 35f0454daf6f6c94584a2c78f129d850, type: 2}
-  m_sharedMaterial: {fileID: -3275928372521369472, guid: 35f0454daf6f6c94584a2c78f129d850, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a698af0fa2f9dee4ea5bcab3914105f4, type: 2}
+  m_sharedMaterial: {fileID: -1053879037655591546, guid: a698af0fa2f9dee4ea5bcab3914105f4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1077,7 +1091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleManager
   _chikenHut: {fileID: 2589355480993811866, guid: 49d32612cbf28db45a60347b6ffe2baf, type: 3}
   _lightTruck: {fileID: 5038142044045674339, guid: 3c587b0f7e6f87c49905ee9a81039e35, type: 3}
-  _enemy: {fileID: 6581289947533203517, guid: 3e59f782d01258843b8718b34dfb7bf8, type: 3}
+  _enemy: {fileID: 5058663845782647155, guid: 3e59f782d01258843b8718b34dfb7bf8, type: 3}
   _generateHutCount: 25
   _generateTruckCount: 25
   _generateEnemyCount: 25
