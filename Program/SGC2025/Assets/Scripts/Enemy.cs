@@ -7,7 +7,16 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject deathEffect;  // 撃破エフェクト（任意）
     [SerializeField] private float hitCooldown = 0.05f;
 
+    private ObstacleManager _obstacleManager = default;
+    private ScoreManager _scoreManager = default;
+
     private bool isHitRecently = false;
+
+    private void Start()
+    {
+        _obstacleManager =GameObject.FindWithTag("ObstacleManager").GetComponent<ObstacleManager>();
+        _scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -38,8 +47,7 @@ public class Enemy : MonoBehaviour
         if (deathEffect != null)
             Instantiate(deathEffect, transform.position, Quaternion.identity);
 
-        ObstacleManager manager = GameObject.FindWithTag("ObstacleManager").GetComponent<ObstacleManager>();
-        manager.DeActiveObj(this.gameObject);
-
+        _obstacleManager.DeActiveObj(this.gameObject);
+        _scoreManager.UpdateScoreValue(100);
     }
 }

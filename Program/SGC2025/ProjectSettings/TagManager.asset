@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - ObstacleManager
   - LightTruck
+  - ScoreManager
   layers:
   - Default
   - TransparentFX

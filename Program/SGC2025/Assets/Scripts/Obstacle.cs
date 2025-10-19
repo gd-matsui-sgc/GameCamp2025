@@ -13,6 +13,10 @@ public class Obstacle : MonoBehaviour
 
     private bool isHitRecently = false;
 
+    private ObstacleManager _obstacleManager = default;
+    private ScoreManager _scoreManager = default;
+
+
     private void Start()
     {
         // Inspectorで設定されていなければ、自動でPlayerを探す
@@ -28,6 +32,10 @@ public class Obstacle : MonoBehaviour
                 Debug.LogWarning("Playerが見つかりません。Tagを 'Player' に設定してください。");
             }
         }
+
+        _obstacleManager = GameObject.FindWithTag("ObstacleManager").GetComponent<ObstacleManager>();
+        _scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
+
     }
     private void OnTriggerEnter(Collider collision)
     {
@@ -46,8 +54,8 @@ public class Obstacle : MonoBehaviour
             if (hitPoints <= 0)
             {
                 SpawnFollowers();
-                ObstacleManager manager = GameObject.FindWithTag("ObstacleManager").GetComponent<ObstacleManager>();
-                manager.DeActiveObj(this.gameObject);
+                _obstacleManager.DeActiveObj(this.gameObject);
+                _scoreManager.UpdateScoreValue(100);
             }
         }
 

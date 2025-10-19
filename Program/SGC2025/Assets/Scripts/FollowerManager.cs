@@ -13,6 +13,10 @@ public class FollowerManager : MonoBehaviour
 
     [Header("仲間リスト")]
     [SerializeField] private List<Transform> followers = new List<Transform>();
+    public List<Transform> Followers
+    {
+        get { return followers; }
+    }
 
     // 仲間を追加
     public void AddFollower(Transform newFollower)
