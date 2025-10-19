@@ -22,6 +22,18 @@ public static class Work
     // ハイスコア
     private static List<int> m_highScores = new List<int>();
 
+    // ロゴ
+    public static Logo logo = null;
+
+    // タイトル
+    public static Title title = null;
+
+    // ゲーム
+    public static Game game = null;
+
+    // リザルト
+    public static Result result = null;
+
     // 静的コンストラクタ。ゲーム開始時に一度だけ呼ばれる
     static Work()
     {

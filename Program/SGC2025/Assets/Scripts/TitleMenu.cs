@@ -62,8 +62,8 @@ public class TitleMenu : MonoBehaviour
         SetTextAlpha(1); yield return new WaitForSeconds(0.05f);
         SetTextAlpha(0); yield return new WaitForSeconds(0.05f);
         SetTextAlpha(1); yield return new WaitForSeconds(0.05f);
-        SetTextAlpha(0);
-
+        SetTextAlpha(0); yield return new WaitForSeconds(0.05f);
+        SetTextAlpha(1);
         _isFlashFinished = true; // 演出完了
     }
 

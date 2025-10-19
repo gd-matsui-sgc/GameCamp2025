@@ -41,7 +41,7 @@ public class FloatingText : MonoBehaviour
         // カメラの方向を常に向くようにする (ビルボード効果)
         if (_mainCamera != null)
         {
-            transform.rotation = _mainCamera.transform.rotation;
+            transform.localEulerAngles = new Vector3( 0.0f, 90.0f, 0.0f);
         }
 
         // Tweenの値を反映

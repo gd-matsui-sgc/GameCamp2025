@@ -18,18 +18,6 @@ public class Boot : BaseScene
     [SerializeField]
     public Phase initPhase = Phase.Title;
 
-    // ロゴ
-    private Logo m_logo = null;
-
-    // タイトル
-    private Title m_title = null;
-
-    // ゲーム
-    private Game m_game = null;
-
-    // リザルト
-    private Result m_result = null;
-
     protected override void OnStart()
     {
         base.OnStart();
@@ -61,11 +49,11 @@ public class Boot : BaseScene
         {
             StartCoroutine("CreateLogo");
         }
-        else if( m_logo != null)
+        else if( Work.logo != null)
         {
-            if( m_logo.IsExited())
+            if( Work.logo.IsExited())
             {
-                m_logo = null;
+                Work.logo = null;
                 SceneManager.UnloadSceneAsync("Logo");
                 SetPhase(  ( int )Phase.Title );
             }
@@ -81,11 +69,11 @@ public class Boot : BaseScene
         {
             StartCoroutine("CreateTitle");
         }
-        else if( m_title != null)
+        else if( Work.title != null)
         {
-            if( m_title.IsExited())
+            if( Work.title.IsExited())
             {
-                m_title = null;
+                Work.title = null;
                 SceneManager.UnloadSceneAsync("Title");
                 SetPhase(  ( int )Phase.Game );
             }
@@ -101,11 +89,11 @@ public class Boot : BaseScene
         {
             StartCoroutine("CreateGame");
         }
-        else if( m_game != null)
+        else if( Work.game != null)
         {
-            if( m_game.IsExited())
+            if( Work.game.IsExited())
             {
-                m_game = null;
+                Work.game = null;
                 SceneManager.UnloadSceneAsync("Honpen");
                 SetPhase(  ( int )Phase.Result );
             }
@@ -121,11 +109,11 @@ public class Boot : BaseScene
         {
             StartCoroutine("CreateResult");
         }
-        else if( m_result != null)
+        else if( Work.result != null)
         {
-            if(m_result.IsExited())
+            if(Work.result.IsExited())
             {
-                if(m_result.GetExitCode() == Result.EXIT_CODE_TITLE)
+                if(Work.result.GetExitCode() == Result.EXIT_CODE_TITLE)
                 {
                     SetPhase((int)Phase.Title);
                 }
@@ -134,7 +122,7 @@ public class Boot : BaseScene
                     SetPhase((int)Phase.Game);
                 }
                 SceneManager.UnloadSceneAsync("Result");
-                m_result = null;
+                Work.result = null;
             }
         }
     }
@@ -156,7 +144,7 @@ public class Boot : BaseScene
         }
 
         GameObject logo = GameObject.Find("Logo");
-        m_logo = logo?.GetComponent<Logo>();
+        Work.logo = logo?.GetComponent<Logo>();
     }
 
     /**
@@ -172,7 +160,7 @@ public class Boot : BaseScene
         }
 
         GameObject title = GameObject.Find("Title");
-        m_title = title?.GetComponent<Title>();
+        Work.title = title?.GetComponent<Title>();
     }
 
     /**
@@ -188,7 +176,7 @@ public class Boot : BaseScene
         }
 
         GameObject game = GameObject.Find("Game");
-        m_game = game?.GetComponent<Game>();
+        Work.game = game?.GetComponent<Game>();
     }
 
     /**
@@ -204,6 +192,6 @@ public class Boot : BaseScene
         }
 
         GameObject result = GameObject.Find("Result");
-        m_result = result?.GetComponent<Result>();
+        Work.result = result?.GetComponent<Result>();
     }
 }
