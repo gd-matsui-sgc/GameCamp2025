@@ -38,6 +38,8 @@ public class Enemy : MonoBehaviour
         if (deathEffect != null)
             Instantiate(deathEffect, transform.position, Quaternion.identity);
 
-        Destroy(gameObject);
+        ObstacleManager manager = GameObject.FindWithTag("ObstacleManager").GetComponent<ObstacleManager>();
+        manager.DeActiveObj(this.gameObject);
+
     }
 }

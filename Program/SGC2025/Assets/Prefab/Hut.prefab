@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 333609744005024824}
   - component: {fileID: 2165722646768727947}
   - component: {fileID: 6864944836939927465}
+  - component: {fileID: -118940116423312975}
   m_Layer: 0
   m_Name: Hut
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,6 +96,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-118940116423312975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2589355480993811866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 356ef5ce66bdb4f8f8c75ab7c9044b4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Obstacle
+  hitPoints: 3
+  hitCooldown: 0.05
+  friendPrefab: {fileID: 7731460502143085931, guid: 3a8a2599309af438f9e47f148b4d9185, type: 3}
+  player: {fileID: 0}
+  spawnFriendCount: 1
 --- !u!1 &7085461367223494322
 GameObject:
   m_ObjectHideFlags: 0

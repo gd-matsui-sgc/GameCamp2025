@@ -8,6 +8,8 @@ TagManager:
   - Obstacle
   - Friend
   - Enemy
+  - ObstacleManager
+  - LightTruck
   layers:
   - Default
   - TransparentFX

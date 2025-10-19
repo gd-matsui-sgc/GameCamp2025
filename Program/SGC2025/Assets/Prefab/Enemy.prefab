@@ -358,6 +358,7 @@ GameObject:
   - component: {fileID: 2090342511349904318}
   - component: {fileID: 7636486730874009739}
   - component: {fileID: 4876654782342919463}
+  - component: {fileID: 2897378929218636899}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -449,6 +450,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2897378929218636899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5058663845782647155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08228d3fe56ac45f89d76252704bde4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  hitPoints: 3
+  deathEffect: {fileID: 0}
+  hitCooldown: 0.05
 --- !u!1 &6241838559801766850
 GameObject:
   m_ObjectHideFlags: 0

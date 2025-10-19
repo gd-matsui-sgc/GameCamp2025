@@ -29,9 +29,9 @@ public class Obstacle : MonoBehaviour
             }
         }
     }
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
+
         if (isHitRecently) return;
 
         // 🥚 卵に当たった時だけ破壊処理
@@ -46,7 +46,8 @@ public class Obstacle : MonoBehaviour
             if (hitPoints <= 0)
             {
                 SpawnFollowers();
-                Destroy(gameObject); // 障害物を削除
+                ObstacleManager manager = GameObject.FindWithTag("ObstacleManager").GetComponent<ObstacleManager>();
+                manager.DeActiveObj(this.gameObject);
             }
         }
 
@@ -55,8 +56,8 @@ public class Obstacle : MonoBehaviour
         {
             // 何も処理しない
         }
-    }
 
+    }
     private void ResetHitFlag() => isHitRecently = false;
 
     private void SpawnFollowers()

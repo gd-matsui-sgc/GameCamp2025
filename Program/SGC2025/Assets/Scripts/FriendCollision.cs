@@ -4,11 +4,12 @@ public class FriendCollision : MonoBehaviour
 {
     [SerializeField] private string obstacleTag = "Obstacle";
     [SerializeField] private string enemyTag = "Enemy";
+    [SerializeField] private string lightTruckTag = "LightTruck";
     [SerializeField] private GameObject deathEffect;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(obstacleTag) || other.CompareTag(enemyTag))
+        if (other.CompareTag(obstacleTag) || other.CompareTag(enemyTag) || other.CompareTag(lightTruckTag))
         {
             // HPを減らす（Playerに通知）
             GameObject player = GameObject.FindGameObjectWithTag("Player");
