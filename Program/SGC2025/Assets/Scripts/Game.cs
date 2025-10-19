@@ -25,12 +25,17 @@ public class Game : BaseScene
     // ヘルプメニュー
     private HelpMenu m_helpMenu = null;
 
+    private PlayerHealth m_playerHealth = null;
+
+    private ScoreManager m_scoreManager = null;
+
     /**
      * 生成時に呼ばれる(Unity側)
      */
     protected override void OnAwake()
     {
         _obstacleManager.CreatePool();
+        m_scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
     }
 
     /**
@@ -165,6 +170,18 @@ public class Game : BaseScene
         _obstacleManager.MovementCall();
         _timeCounter.Timer();
 
+        if (m_playerHealth == null)
+        {
+            GameObject go = GameObject.FindGameObjectWithTag("Player");
+            if (go != null)
+            {
+                m_playerHealth = go.GetComponent<PlayerHealth>();
+            }
+        }
+        if (m_playerHealth && m_playerHealth.IsDie())
+        {
+            SetPhase((int)Phase.GameEnd);
+        }
     }
 
     /**
@@ -176,8 +193,7 @@ public class Game : BaseScene
         if (GetPhaseTime() == 0)
         {
             // ゲーム中のスコアを設定
-            Work.SetScore(100);
-
+            Work.SetScore(m_scoreManager.Score);
 
             // Telopプレハブを読み込んで生成し、コンポーネントを取得
             GameObject telopPrefab = Resources.Load<GameObject>("Prefabs/UIs/Telop");
