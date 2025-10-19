@@ -73,47 +73,72 @@ public class Result : BaseScene
 
     private void Wait()
     {
-        // スコア演出開始 (2秒後)
-        if (GetPhaseTime() == 60 * 2)
+        // --- 1. スコア演出開始 (2秒待ってから) ---
+        if (GetPhaseTime() == 120 && resultMenu != null && !resultMenu.IsScoreMoving() && !m_highScoreUpdated)
         {
-            if (resultMenu != null)
-            {
-                resultMenu.SetScore(Work.GetScore());
-            }
-            return; // このフレームでは他の処理をしない
+            resultMenu.SetScore(Work.GetScore());
         }
 
-        // スコア演出中は待機
+        // --- 2. スコア演出が完了するのを待つ ---
         if (resultMenu != null && resultMenu.IsScoreMoving())
         {
             return;
         }
 
-        // ハイスコア更新処理 (スコア演出完了後、一度だけ実行)
-        if (!m_highScoreUpdated && GetPhaseTime() > 60 * 2)
+        // --- 3. スコア演出完了後、ハイスコア更新処理を一度だけ実行 ---
+        //    GetPhaseTime() > 120 は、スコア演出が開始された後であることを保証します。
+        if (!m_highScoreUpdated && GetPhaseTime() > 120)
         {
-            m_highScoreUpdated = true; // フラグを立てて再実行を防ぐ
-            Work.UpdateHighScore();
-            bool isRankIn = false;
-            for (int i = 0; i < Work.HIGH_SCORE_COUNT; i++)
-            {
-                int score = Work.GetHighScore(i);
-                resultMenu.SetHighScore(i, score);
-                // 今回のスコアがハイスコアにランクインした場合
-                if (score != 0 && score == Work.GetScore() && !isRankIn)
-                {
-                    resultMenu.SetHighScoreMarkVisible(i, true);
-                    isRankIn = true;
-                }
-            }
+            sound.PlaySE(SoundDefine.SE.SHOW_AMOUNT);
+
+            // ハイスコア更新処理を実行
+            UpdateAndDisplayHighScores();
+
+            // 次のフレームからキー入力待ちに移行できるように、フェーズ時間をリセット
+            SetPhaseTime(0);
         }
 
-        // ハイスコア表示後、一定時間待ってからキー入力待ちへ
-        if (m_highScoreUpdated && GetPhaseTime() > 60 * 4)
+        // --- 4. ハイスコア更新後、1秒間の余韻(Pause)をおいてからキー入力待ちへ ---
+        if (m_highScoreUpdated && GetPhaseTime() > 60) // 60フレーム = 1秒
         {
             if (Input.anyKeyDown)
             {
+                sound.PlaySE(SoundDefine.SE.CONFIRM_16);
                 SetPhase((int)Phase.Out);
+            }
+        }
+    }
+
+    /// <summary>
+    /// ハイスコアを更新し、結果を画面に表示します。
+    /// </summary>
+    private void UpdateAndDisplayHighScores()
+    {
+        m_highScoreUpdated = true; // フラグを立てて再実行を防ぐ
+
+        Work.UpdateHighScore();
+        bool isRankIn = false;
+        for (int i = 0; i < Work.HIGH_SCORE_COUNT; i++)
+        {
+            int score = Work.GetHighScore(i);
+            resultMenu.SetHighScore(i, score);
+
+            // 今回のスコアがハイスコアにランクインした場合
+            if (score != 0 && score == Work.GetScore() && !isRankIn)
+            {
+                resultMenu.SetHighScoreMarkVisible(i, true);
+                resultMenu.HighlightHighScore(i);
+
+                // SEクリップを取得して、その長さだけBGMの音量を下げる
+                AudioClip seClip = sound.GetSEClip(SoundDefine.SE.CHICKEN_CRY_1);
+                float seDuration = seClip != null ? seClip.length : 0.5f; // クリップが見つからない場合は0.5秒
+
+                sound.DuckBGM(0.3f, seDuration);
+
+                // SEを再生してアニメーション開始
+                sound.PlaySE(SoundDefine.SE.CHICKEN_CRY_1);
+                resultMenu.PlayStampAnimation();
+                isRankIn = true;
             }
         }
     }

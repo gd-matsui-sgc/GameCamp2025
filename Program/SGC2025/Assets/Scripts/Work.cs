@@ -71,6 +71,23 @@ public static class Work
     /// <summary>
     /// ハイスコアをPlayerPrefsに保存します
     /// </summary>
+    public static void ResetHighScores()
+    {
+        for (int i = 0; i < HIGH_SCORE_COUNT; i++)
+        {
+            // キーと値を設定
+            string key = "HighScore_" + i;
+            PlayerPrefs.SetInt(key, 0);
+        }
+        m_highScores.Clear();
+        // 変更をディスクに書き込む
+        PlayerPrefs.Save();
+    }
+
+
+    /// <summary>
+    /// ハイスコアをPlayerPrefsに保存します
+    /// </summary>
     private static void SaveHighScores()
     {
         for (int i = 0; i < HIGH_SCORE_COUNT; i++)

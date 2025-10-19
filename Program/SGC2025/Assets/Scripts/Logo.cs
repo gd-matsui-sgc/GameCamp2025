@@ -60,9 +60,17 @@ public class Logo : BaseScene
 
     private void Wait()
     {
+        // 3秒経過したら自動的に次のフェーズへ
         if (GetPhaseTime() >= 60 * 3)
         {
             SetPhase((int)Phase.Out);
+        }
+
+        // [デバッグ機能] 上矢印キーを長押しでハイスコアをリセット
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            Work.ResetHighScores();
+            Debug.Log("ハイスコアがリセットされました。");
         }
     }
 

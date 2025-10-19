@@ -213,4 +213,63 @@ public class SoundManager : MonoBehaviour
         // すべて使用中の場合は警告（必要ならプールを増やす）
         Debug.LogWarning("All SE sources are busy. Consider increasing the pool count.");
     }
+
+    /// <summary>
+    /// 指定されたSEのAudioClipを取得します。キャッシュにない場合は読み込みます。
+    /// </summary>
+    /// <param name="seType">取得するSEの種類</param>
+    /// <returns>AudioClip。見つからない場合はnull。</returns>
+    public AudioClip GetSEClip(SoundDefine.SE seType)
+    {
+        if (seType == SoundDefine.SE.None) return null;
+
+        // まずキャッシュを確認
+        if (seCache.TryGetValue(seType, out AudioClip clip))
+        {
+            return clip;
+        }
+
+        // キャッシュになければパスを取得して読み込む
+        if (!SoundDefine.SePath.TryGetValue(seType, out string sePath))
+        {
+            Debug.LogWarning($"SE path for {seType} not found in SoundDefine.");
+            return null;
+        }
+
+        clip = Resources.Load<AudioClip>("Sounds/SE/" + sePath);
+        if (clip == null)
+        {
+            Debug.LogWarning($"SE not found: Sounds/SE/{sePath}");
+            return null;
+        }
+
+        // 次回のためにキャッシュに保存
+        seCache[seType] = clip;
+        return clip;
+    }
+
+    /// <summary>
+    /// BGMの音量を一時的に下げます（ダッキング）。
+    /// </summary>
+    /// <param name="duckRatio">音量を下げる割合 (0.0 - 1.0)。0.3なら30%の音量になる。</param>
+    /// <param name="duration">音量を下げておく時間（秒）。</param>
+    public void DuckBGM(float duckRatio, float duration)
+    {
+        StartCoroutine(DuckBGMRoutine(duckRatio, duration));
+    }
+
+    private IEnumerator DuckBGMRoutine(float duckRatio, float duration)
+    {
+        float originalVolume = masterVolume * bgmVolume;
+        float duckedVolume = originalVolume * duckRatio;
+
+        // 現在再生中のBGMソースの音量を下げる
+        bgmSources[activeBgmSourceIndex].volume = duckedVolume;
+
+        // 指定された時間待機
+        yield return new WaitForSeconds(duration);
+
+        // 音量を元に戻す
+        bgmSources[activeBgmSourceIndex].volume = originalVolume;
+    }
 }
