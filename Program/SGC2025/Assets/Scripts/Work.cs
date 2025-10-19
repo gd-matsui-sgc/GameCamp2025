@@ -14,7 +14,7 @@ public static class Work
     public static Fade fade = null;
 
     // スコア
-    private static int m_score = 0;
+    private static int m_score =5000;
 
     // ハイスコア
     private static List<int> m_highScores = new List<int>();
@@ -45,4 +45,15 @@ public static class Work
             m_highScores.RemoveRange(3, m_highScores.Count - HIGH_SCORE_COUNT);
         }
     }
+
+    // ハイスコアを取得
+    public static int GetHighScore(int _index)
+    {
+        if (_index < m_highScores.Count)
+        {
+            return m_highScores[_index];
+        }
+        return 0;
+    }
+
 }
