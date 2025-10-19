@@ -20,6 +20,7 @@ public class Result : BaseScene
     protected override void OnAwake()
     {
         Debug.Log("Result");
+        sound.PlayBGM(SoundDefine.BGM.RESULT);
     }
 
     /**
@@ -93,14 +94,16 @@ public class Result : BaseScene
         {
             m_highScoreUpdated = true; // フラグを立てて再実行を防ぐ
             Work.UpdateHighScore();
+            bool isRankIn = false;
             for (int i = 0; i < Work.HIGH_SCORE_COUNT; i++)
             {
                 int score = Work.GetHighScore(i);
                 resultMenu.SetHighScore(i, score);
                 // 今回のスコアがハイスコアにランクインした場合
-                if (score != 0 && score == Work.GetScore())
+                if (score != 0 && score == Work.GetScore() && !isRankIn)
                 {
                     resultMenu.SetHighScoreMarkVisible(i, true);
+                    isRankIn = true;
                 }
             }
         }
@@ -119,10 +122,12 @@ public class Result : BaseScene
     {
         if (GetPhaseTime() == 0)
         {
+            sound.StopBGM();
             Work.fade.Play(Fade.FadeType.Out, Fade.ColorType.Black);
         }
         else if( !Work.fade.IsPlaying())
         {
+            SetExitCode(EXIT_CODE_TITLE);
             Exit();
         }
     }

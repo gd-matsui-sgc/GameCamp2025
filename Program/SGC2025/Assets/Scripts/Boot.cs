@@ -33,6 +33,7 @@ public class Boot : BaseScene
     protected override void OnStart()
     {
         base.OnStart();
+        SetPhase((int)initPhase);
     }
 
 

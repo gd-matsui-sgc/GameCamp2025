@@ -10,17 +10,17 @@ using UnityEngine.SceneManagement;
 public class Base : MonoBehaviour
 {
     // 終了したか
-    private bool m_exited               = false;
+    private bool m_exited = false;
     // 終了コード
-    private int  m_exitCode             = -1;
+    private int m_exitCode = -1;
     // フェイズ
-    private int  m_phase                = 0;
+    private int m_phase = 0;
     // 最後のフェイズ
-    private int  m_lasePhase            = 0;
+    private int m_lasePhase = 0;
     // フェイズの時間
-    private int  m_phaseTime            = 0;
+    private int m_phaseTime = 0;
     // フェイズの時間が更新可能か
-    private bool m_phaseTimeUpdatable   = false;
+    private bool m_phaseTimeUpdatable = false;
 
 
     /**
@@ -28,6 +28,13 @@ public class Base : MonoBehaviour
      */
     protected virtual void Awake()
     {
+        // SoundManagerのインスタンスを生成
+        // SoundManagerがシーン内に既に存在しない場合のみ生成する
+        if (SoundManager.Instance == null)
+        {
+            GameObject soundManagerObj = new GameObject("SoundManager");
+            soundManagerObj.AddComponent<SoundManager>();
+        }
         OnAwake();
     }
 
@@ -46,7 +53,7 @@ public class Base : MonoBehaviour
     {
         m_phaseTimeUpdatable = true;
         OnUpdate();
-        if( m_phaseTimeUpdatable ){ m_phaseTime++; }
+        if (m_phaseTimeUpdatable) { m_phaseTime++; }
     }
 
     /**
@@ -70,7 +77,7 @@ public class Base : MonoBehaviour
      */
     protected virtual void OnUpdate()
     {
-        
+
     }
 
     /**
@@ -101,7 +108,7 @@ public class Base : MonoBehaviour
      * 終了コードを設定
      * @param exitCode    終了コード
      */
-    public void SetExitCode( int exitCode )
+    public void SetExitCode(int exitCode)
     {
         m_exitCode = exitCode;
     }
@@ -119,14 +126,14 @@ public class Base : MonoBehaviour
      * フェイズを設定
      * @param phase    フェイズ
      * @param forced   強制的に変更するか
-     */    
-    public void SetPhase( int phase, bool forced = false )
+     */
+    public void SetPhase(int phase, bool forced = false)
     {
-        if( m_phase != phase || forced )
+        if (m_phase != phase || forced)
         {
             m_lasePhase = m_phase;
-            m_phase     = phase;
-            SetPhaseTime( 0 );
+            m_phase = phase;
+            SetPhaseTime(0);
         }
     }
 
@@ -150,13 +157,19 @@ public class Base : MonoBehaviour
 
     /**
      * フェイズ時間を設定
-     * @oaram phaseTime    フェイズ時間
-     */    
-    public void SetPhaseTime( int phaseTime )
+     * @param phaseTime    フェイズ時間
+     */
+    public void SetPhaseTime(int phaseTime)
     {
         m_phaseTime = phaseTime;
         m_phaseTimeUpdatable = false;
     }
 
-
+    /**
+     * サウンド
+     */
+    public SoundManager sound
+    {
+        get{ return SoundManager.Instance; }
+    }
 }

@@ -19,6 +19,10 @@ public class Game : BaseScene
     private ObstacleManager _obstacleManager = default;
     [SerializeField, Header("タイマー")]
     private TimeCounter _timeCounter = default;
+
+    // テロップ
+    private Telop m_telop = null;
+
     /**
      * 生成時に呼ばれる(Unity側)
      */
@@ -88,6 +92,7 @@ public class Game : BaseScene
             {
                 return;
             }
+            sound.PlayBGM(SoundDefine.BGM.GAME);
             SetPhase((int)Phase.Help);
         }
     }
@@ -105,8 +110,23 @@ public class Game : BaseScene
      */
     protected void _GameStart()
     {
-        // テロップなどを出してから遷移
-        SetPhase((int)Phase.GameMain);
+        // 最初のフレームでテロップを再生
+        if (GetPhaseTime() == 0)
+        {
+            // Telopプレハブを読み込んで生成し、コンポーネントを取得
+            GameObject telopPrefab = Resources.Load<GameObject>("Prefabs/UIs/Telop");
+            if (telopPrefab != null)
+            {
+                GameObject instance = Instantiate(telopPrefab);
+                m_telop = instance.GetComponent<Telop>();
+            }
+            m_telop?.Play("Game Start");
+        }
+        else if(m_telop == null || m_telop.IsExited())
+        {
+            m_telop = null;
+            SetPhase((int)Phase.GameMain);
+        }
     }
 
     /**
@@ -126,10 +146,28 @@ public class Game : BaseScene
      */
     protected void _GameEnd()
     {
-        // ゲーム中のスコアを設定
-        Work.SetScore(100);
-        // テロップなどを出してから遷移
-        SetPhase((int)Phase.FadeOut);
+        // 最初のフレームでテロップを再生
+        if (GetPhaseTime() == 0)
+        {
+            // ゲーム中のスコアを設定
+            Work.SetScore(100);
+
+
+            // Telopプレハブを読み込んで生成し、コンポーネントを取得
+            GameObject telopPrefab = Resources.Load<GameObject>("Prefabs/UIs/Telop");
+            if (telopPrefab != null)
+            {
+                GameObject instance = Instantiate(telopPrefab);
+                m_telop = instance.GetComponent<Telop>();
+            }
+            m_telop?.Play("Game End");
+        }
+        // テロップの再生が終わったら次のフェーズへ
+        else if(m_telop == null || m_telop.IsExited())
+        {
+            m_telop = null;
+            SetPhase((int)Phase.FadeOut);
+        }
     }
 
     /**
@@ -139,6 +177,7 @@ public class Game : BaseScene
     {
         if (GetPhaseTime() == 0)
         {
+            sound.StopBGM();
             if( Work.fade != null )
             {
                 Work.fade.Play(Fade.FadeType.Out, Fade.ColorType.Black);

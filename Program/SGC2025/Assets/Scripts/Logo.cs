@@ -60,7 +60,7 @@ public class Logo : BaseScene
 
     private void Wait()
     {
-        if (GetPhaseTime() >= 120)
+        if (GetPhaseTime() >= 60 * 3)
         {
             SetPhase((int)Phase.Out);
         }
