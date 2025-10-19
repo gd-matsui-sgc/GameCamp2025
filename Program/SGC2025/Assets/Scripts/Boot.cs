@@ -33,6 +33,10 @@ public class Boot : BaseScene
     protected override void OnStart()
     {
         base.OnStart();
+        if( Work.fade != null )
+        {
+            Work.fade.Play(Fade.FadeType.Blank, Fade.ColorType.Black);
+        }
         SetPhase((int)initPhase);
     }
 
