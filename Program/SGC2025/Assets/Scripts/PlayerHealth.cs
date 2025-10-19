@@ -17,6 +17,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float invincibleTime = 2f;
     [SerializeField] private float flashInterval = 0.1f;
     private bool isInvincible = false;
+    private bool m_isDie = false;
 
     private Renderer[] renderers;
 
@@ -94,13 +95,12 @@ public class PlayerHealth : MonoBehaviour
         isInvincible = false;
         SetVisible(true);
 
-        // 1秒後にリザルト画面へ切り替え
-        Invoke(nameof(LoadResultScene), 1f);
+        m_isDie = true;
     }
 
-    private void LoadResultScene()
+    public bool IsDie()
     {
-        SceneManager.LoadScene("result"); // ← シーン名は自分のに合わせて！
+        return m_isDie;
     }
 
     // Friendが消えた時にHPを減らす
