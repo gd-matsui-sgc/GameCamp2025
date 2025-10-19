@@ -5,6 +5,11 @@ public class PlayerMoveZ_Rigidbody : MonoBehaviour
 {
     public float moveSpeed = 5f;       // 移動速度
     private Rigidbody rb;              // Rigidbody参照
+    private bool _canMove = true;
+    public bool CanMove
+    {
+        set { _canMove = value; }
+    }
 
     void Start()
     {
@@ -18,6 +23,10 @@ public class PlayerMoveZ_Rigidbody : MonoBehaviour
 
     void Update()
     {
+        if (!_canMove)
+        {
+            return;
+        }
         // ←→キーまたはA/Dキー入力
         float move = Input.GetAxis("Horizontal");
 

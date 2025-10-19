@@ -14,11 +14,12 @@ public class Game : BaseScene
         FadeOut,    // フェードアウト
     }
 
-
     [SerializeField, Header("障害物のマネージャー")]
     private ObstacleManager _obstacleManager = default;
     [SerializeField, Header("タイマー")]
     private TimeCounter _timeCounter = default;
+    [SerializeField, Header("プレイヤー")]
+    private PlayerMoveZ_Rigidbody _playerMove = default;
 
     // テロップ
     private Telop m_telop = null;
@@ -109,6 +110,7 @@ public class Game : BaseScene
      */
     protected void _Help()
     {
+        _playerMove.CanMove = false;
         // 最初のフレームでテロップを再生
         if (GetPhaseTime() == 0)
         {
@@ -141,6 +143,7 @@ public class Game : BaseScene
      */
     protected void _GameStart()
     {
+        _playerMove.CanMove = true;
         // 最初のフレームでテロップを再生
         if (GetPhaseTime() == 0)
         {
@@ -189,6 +192,7 @@ public class Game : BaseScene
      */
     protected void _GameEnd()
     {
+        _playerMove.CanMove = false;
         // 最初のフレームでテロップを再生
         if (GetPhaseTime() == 0)
         {

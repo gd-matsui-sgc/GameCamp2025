@@ -1173,6 +1173,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ac04487cef234ca38d0cecb515531b4, type: 3}
+--- !u!114 &1591520415 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1389532453473980730, guid: 8ac04487cef234ca38d0cecb515531b4, type: 3}
+  m_PrefabInstance: {fileID: 1591520414}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad563e0846ac4959a6f81d3cbfbb0bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMoveRelative
 --- !u!1 &1817871102
 GameObject:
   m_ObjectHideFlags: 0
@@ -1431,6 +1442,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8906210644918197305, guid: 61f7a4afaf460574699be2a158f4a530, type: 3}
+      propertyPath: _playerMove
+      value: 
+      objectReference: {fileID: 1591520415}
     - target: {fileID: 8906210644918197305, guid: 61f7a4afaf460574699be2a158f4a530, type: 3}
       propertyPath: _timeCounter
       value: 

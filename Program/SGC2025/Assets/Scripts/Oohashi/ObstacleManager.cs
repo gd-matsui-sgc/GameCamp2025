@@ -90,6 +90,7 @@ public class ObstacleManager : MonoBehaviour
         _hutList[_hutIndex].transform.position = pos;
         _hutList[_hutIndex].GetComponent<ObstacleMovement>().SpeedUp(_hutMoveSpeed);
         _hutIndex++;
+        SoundManager.Instance.PlaySE(SoundDefine.SE.DOOR_KICK);
     }
     /// <summary>
     /// 軽トラをアクティブにして座標セット
@@ -105,6 +106,7 @@ public class ObstacleManager : MonoBehaviour
         _truckList[_truckIndex].transform.position=pos;
         _truckList[_truckIndex].GetComponent<ObstacleMovement>().SpeedUp(_lightTruckMoveSpeed);
         _truckIndex++;
+        SoundManager.Instance.PlaySE(SoundDefine.SE.DUMP_TRUCK_IDLE);
     }
     /// <summary>
     /// 敵をアクティブにして座標セット
@@ -120,6 +122,7 @@ public class ObstacleManager : MonoBehaviour
         _enemyList[_enemyIndex].transform.position=pos;
         _enemyList[_enemyIndex].GetComponent<ObstacleMovement>().SpeedUp(_enemyMoveSpeed);
         _enemyIndex++;
+        SoundManager.Instance.PlaySE(SoundDefine.SE.CHICKEN);
     }
     /// <summary>
     /// オブジェクトを非表示にして待機させる
@@ -127,6 +130,19 @@ public class ObstacleManager : MonoBehaviour
     /// <param name="obj">非表示にするオブジェクト</param>
     public void DeActiveObj(GameObject obj)
     {
+        switch (obj.tag)
+        {
+            case "Obstacle":
+                SoundManager.Instance.PlaySE(SoundDefine.SE.CHICKEN_CRY_3);
+                break;
+
+            case "Enemy":
+                SoundManager.Instance.PlaySE(SoundDefine.SE.CHICKEN_CRY_1);
+                break;
+            default:
+                SoundManager.Instance.PlaySE(SoundDefine.SE.EXPLOSION_1);
+                break;
+        }
         obj.SetActive(false);
     }
 
