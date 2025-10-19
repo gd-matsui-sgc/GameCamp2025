@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour
         if (deathEffect != null)
             Instantiate(deathEffect, transform.position, Quaternion.identity);
 
-        int pendingScore = _scoreManager.GetPendingScore(100);
+        int pendingScore = _scoreManager.GetPendingScore(200);
         if (FloatingTextManager.Instance != null)
         {
             FloatingTextManager.Instance.Show("+" + pendingScore.ToString(), transform.position, Color.red);
