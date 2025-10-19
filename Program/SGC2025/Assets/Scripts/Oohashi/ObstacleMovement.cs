@@ -20,6 +20,7 @@ public class ObstacleMovement : MonoBehaviour
     /// </summary>
     public void MoveProtocol()
     {
+        Debug.Log(gameObject.tag + "‚ÌˆÚ“®‘¬“x‚Í" + _moveSpeed);
         _rigidBody.linearVelocity = new Vector3(_moveSpeed, 0, 0);
     }
 

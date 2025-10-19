@@ -249,8 +249,8 @@ Transform:
   m_GameObject: {fileID: 197097228}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 621, y: 433, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalPosition: {x: 728, y: 476, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 17813382}
@@ -740,14 +740,14 @@ RectTransform:
   m_GameObject: {fileID: 864209991}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 17813382}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 662, y: 278}
+  m_AnchoredPosition: {x: 750, y: 394}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &864209993
@@ -1142,7 +1142,7 @@ MonoBehaviour:
   _hutMoveSpeed: -10
   _lightTruckMoveSpeed: -20
   _enemyMoveSpeed: -15
-  _changeMoveSpeedValue: -2
+  _changeMoveSpeedValue: -10
 --- !u!4 &1907855115
 Transform:
   m_ObjectHideFlags: 0
@@ -1184,8 +1184,8 @@ Transform:
   m_GameObject: {fileID: 1983973511}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 609, y: 254, z: 0}
-  m_LocalScale: {x: 30, y: 30, z: 30}
+  m_LocalPosition: {x: 728, y: 360, z: 0}
+  m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 17813382}

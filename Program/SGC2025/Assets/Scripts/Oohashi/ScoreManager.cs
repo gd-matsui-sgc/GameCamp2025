@@ -20,13 +20,6 @@ public class ScoreManager : MonoBehaviour
         _follow = GameObject.FindWithTag("Player").GetComponent<FollowerManager>();
     }
 
-    private void Update()
-    {
-        //if (Input.GetButtonDown("Fire1"))
-        //{
-        //    UpdateScoreValue(100);
-        //}
-    }
 
     public void UpdateScoreValue(int score)
     {
