@@ -621,9 +621,10 @@ GameObject:
   - component: {fileID: 2602019682125247152}
   - component: {fileID: -7589288936624471442}
   - component: {fileID: -5963580236661005512}
+  - component: {fileID: -1503750099946855589}
   m_Layer: 0
   m_Name: Friend
-  m_TagString: Untagged
+  m_TagString: Friend
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -665,7 +666,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -729,6 +730,20 @@ MonoBehaviour:
   shootPoint: {fileID: 5910175295883388769}
   shootInterval: 1.5
   eggSpeed: 10
+--- !u!114 &-1503750099946855589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7731460502143085931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb1ae56ca0614f4f95c9a82161dd2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FriendCollision
+  obstacleTag: Obstacle
+  deathEffect: {fileID: 0}
 --- !u!1 &8092226789155735375
 GameObject:
   m_ObjectHideFlags: 0
