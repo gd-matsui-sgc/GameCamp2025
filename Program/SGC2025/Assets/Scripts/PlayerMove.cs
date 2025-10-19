@@ -25,5 +25,10 @@ public class PlayerMoveZ_Rigidbody : MonoBehaviour
         Vector3 velocity = rb.linearVelocity;
         velocity.z = move * moveSpeed * -1;
         rb.linearVelocity = velocity;
+
+        Vector3 pos = rb.position;
+        pos.z = Mathf.Clamp(pos.z, -10f, 10f);
+        rb.position = pos;
+
     }
 }
